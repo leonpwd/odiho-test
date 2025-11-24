@@ -2,7 +2,8 @@ import Head from 'next/head'
 import { motion } from 'framer-motion'
 import { useRef, useState } from 'react'
 import Header from '../components/Header'
-import SoundWave from '../components/SoundWave'
+import PhoneWithHand from '../components/PhoneWithHand'
+import SoundRipples from '../components/SoundRipples'
 
 export default function Home() {
   const audioRef = useRef(null)
@@ -58,18 +59,20 @@ export default function Home() {
               </motion.div>
             </div>
 
-            <div className="md:w-1/2 mt-12 md:mt-0 flex justify-center">
-              <motion.div id="qr" initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.6 }} className="w-80 h-80 bg-white/5 rounded-xl flex items-center justify-center relative">
-                <img src="/qr-sample.svg" alt="QR sample" className="w-48 h-48" />
-                <div className="absolute bottom-6 text-xs text-gray-300">Scannez pour rejoindre l'audio</div>
-              </motion.div>
-            </div>
+            <div className="md:w-1/2 mt-12 md:mt-0 flex justify-center items-center flex-col gap-6">
+                <motion.div id="phone" initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.6 }} className="w-72 h-96 bg-transparent rounded-xl flex items-center justify-center relative">
+                  <PhoneWithHand flash={playing} playing={playing} />
+                </motion.div>
+                <div className="w-full max-w-md">
+                  <SoundRipples playing={playing} />
+                </div>
+              </div>
           </div>
 
           <div className="mt-12">
             <div className="max-w-4xl mx-auto">
               <motion.div initial={{ y: 10, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.36 }}>
-                <SoundWave playing={playing} />
+                <SoundRipples playing={playing} />
               </motion.div>
             </div>
           </div>

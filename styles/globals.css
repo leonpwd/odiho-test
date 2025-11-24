@@ -50,3 +50,14 @@ body {
 .blob, .wave-section {
   pointer-events: none;
 }
+
+/* phone/hand styling */
+.phone-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.drop-shadow-2xl {
+  filter: drop-shadow(0 20px 40px rgba(2,6,23,0.7));
+}
