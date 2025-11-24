@@ -67,16 +67,16 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
-      <main className="min-h-screen relative bg-white overflow-hidden">
+      <main className="min-h-screen relative bg-white overflow-x-hidden">
         {/* Background decorative blobs */}
         <div className="blob w-96 h-96 bg-emerald-100/50 rounded-full -top-20 -left-20 animate-float blur-3xl" style={{ position: 'absolute' }} />
         <div className="blob w-96 h-96 bg-indigo-100/50 rounded-full top-1/2 -right-20 animate-slowSpin blur-3xl" style={{ position: 'absolute' }} />
 
-        <div className="container mx-auto px-6 py-12 relative z-10 h-screen flex flex-col justify-center">
+        <div className="container mx-auto px-6 py-6 md:py-12 relative z-10 min-h-screen flex flex-col md:justify-center">
           <div className="md:flex md:items-center md:justify-between">
-            <div className="md:w-1/2 mb-12 md:mb-0">
+            <div className="md:w-1/2 mb-8 md:mb-0">
               <motion.div initial={{ y: 30, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.6 }}>
-                <h1 className="text-6xl md:text-8xl font-black leading-tight tracking-tight">
+                <h1 className="text-5xl md:text-8xl font-black leading-tight tracking-tight">
                   <span className="bg-clip-text text-transparent bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900">
                     Odiho
                   </span>
@@ -88,12 +88,12 @@ export default function Home() {
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.12 }}
-                className="mt-6 text-xl md:text-2xl text-gray-600 font-medium max-w-lg leading-relaxed"
+                className="mt-4 md:mt-6 text-lg md:text-2xl text-gray-600 font-medium max-w-lg leading-relaxed"
               >
                 L'évènement. <span className="text-gray-900 font-bold">Directement sur votre téléphone.</span>
               </motion.p>
 
-              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.24 }} className="mt-10 flex flex-col sm:flex-row items-start sm:items-center gap-6">
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.24 }} className="mt-6 md:mt-10 flex flex-col sm:flex-row items-start sm:items-center gap-6">
                 <button
                   onClick={handleMainAction}
                   className={`group relative px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-1 ${playing ? 'bg-gray-900 text-white' : 'bg-emerald-400 text-gray-900'}`}
@@ -123,7 +123,7 @@ export default function Home() {
                 </div>
               </motion.div>
 
-              <motion.div className="mt-16 border-l-4 border-gray-200 pl-6">
+              <motion.div className="mt-8 md:mt-16 border-l-4 border-gray-200 pl-6">
                 <p className="text-gray-500 italic">
                   "Une immersion sonore totale. Connectez-vous au flux audio du stade en temps réel et profitez de commentaires exclusifs."
                 </p>
@@ -132,7 +132,7 @@ export default function Home() {
 
             <div className="md:w-1/2 flex justify-center items-center relative">
               <motion.div
-                className="relative w-72 h-96"
+                className="relative w-64 h-80 md:w-72 md:h-96"
                 initial={{ y: 20, opacity: 0, rotate: 0 }}
                 animate={flash ? { y: 6, opacity: 1, rotate: -4 } : { y: 0, opacity: 1, rotate: 0 }}
                 transition={{ duration: 0.7, ease: 'easeOut' }}
