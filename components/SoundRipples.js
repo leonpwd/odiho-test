@@ -1,6 +1,6 @@
 import { useRef, useEffect } from 'react'
 
-export default function SoundRipples({ playing = false }) {
+export default function SoundRipples({ playing = false, className = '' }) {
   const canvasRef = useRef(null)
 
   useEffect(() => {
@@ -64,7 +64,7 @@ export default function SoundRipples({ playing = false }) {
   }, [playing])
 
   return (
-    <div className="w-full h-64 md:h-80 rounded-xl overflow-hidden pointer-events-none">
+    <div className={`${className} w-full h-full rounded-xl overflow-hidden pointer-events-none`}>
       <canvas ref={canvasRef} className="w-full h-full block" />
     </div>
   )
