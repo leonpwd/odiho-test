@@ -1,0 +1,14 @@
+/node_modules
+.next/
+.env/
+.DS_Store
+/logs
+*.log
+/build
+/dist
+/.vscode
+.idea/
+*.swp
+*.swo
+*.bak
+.next/dev/lock
