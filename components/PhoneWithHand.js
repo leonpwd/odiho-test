@@ -1,8 +1,10 @@
 import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 
-export default function PhoneWithHand({ flash = false, playing = false }) {
+export default function PhoneWithHand({ flash = false, playing = false, playingStartedAt = null }) {
   const [showQR, setShowQR] = useState(false)
+  // use CSS transition for smooth fade-in of bars when `playing` becomes true
+  const barsStyle = { opacity: playing ? 1 : 0, transition: 'opacity 900ms ease' }
 
   useEffect(() => {
     let tShow = null
@@ -21,11 +23,7 @@ export default function PhoneWithHand({ flash = false, playing = false }) {
   }, [flash])
 
   return (
-    <motion.div
-      initial={{ y: 20, opacity: 0, rotate: 0 }}
-      animate={flash ? { y: 6, opacity: 1, rotate: -4 } : { y: 0, opacity: 1, rotate: 0 }}
-      transition={{ duration: 0.7, ease: 'easeOut' }}
-      style={{ transformOrigin: 'center' }}
+    <div
       className="w-72 h-96 flex items-end justify-center phone-wrap"
     >
       <svg viewBox="0 0 240 320" width="240" height="320" className="drop-shadow-2xl">
@@ -45,35 +43,57 @@ export default function PhoneWithHand({ flash = false, playing = false }) {
 
             {/* QR placeholder squares (visible when showQR) */}
             <g style={{ opacity: showQR ? 1 : 0, transition: 'opacity 300ms ease' }}>
-              <rect x="10" y="10" width="20" height="20" fill="#000" />
-              <rect x="70" y="10" width="20" height="20" fill="#000" />
-              <rect x="10" y="70" width="20" height="20" fill="#000" />
-              {/* random QR pattern */}
-              <g fill="#fff">
-                <rect x="40" y="40" width="8" height="8" />
-                <rect x="58" y="40" width="8" height="8" />
-                <rect x="76" y="40" width="8" height="8" />
-                <rect x="40" y="58" width="8" height="8" />
-                <rect x="58" y="58" width="8" height="8" />
-                <rect x="76" y="58" width="8" height="8" />
+              {/* QR background */}
+              <rect x="8" y="8" width="84" height="84" rx="4" fill="#fff" />
+
+              {/* QR Data Pattern - Abstract representation */}
+              <g fill="#1f2937" opacity="0.9">
+                {/* Top Left Finder */}
+                <path d="M14 14h20v20h-20z M18 18v12h12v-12z M20 20h8v8h-8z" />
+                {/* Top Right Finder */}
+                <path d="M66 14h20v20h-20z M70 18v12h12v-12z M72 20h8v8h-8z" />
+                {/* Bottom Left Finder */}
+                <path d="M14 66h20v20h-20z M18 70v12h12v-12z M20 72h8v8h-8z" />
+
+                {/* Data Bits - Random-looking pattern */}
+                <path d="
+                  M40 14h4v4h-4z M48 14h4v4h-4z M56 14h4v4h-4z
+                  M38 22h4v4h-4z M46 22h4v4h-4z M54 22h4v4h-4z M60 22h4v4h-4z
+                  M14 40h4v4h-4z M22 40h4v4h-4z M30 40h4v4h-4z M40 40h4v4h-4z M50 40h4v4h-4z M60 40h4v4h-4z M70 40h4v4h-4z M80 40h4v4h-4z
+                  M14 48h4v4h-4z M26 48h4v4h-4z M38 48h4v4h-4z M50 48h4v4h-4z M62 48h4v4h-4z M74 48h4v4h-4z
+                  M40 56h4v4h-4z M48 56h4v4h-4z M56 56h4v4h-4z
+                  M40 66h4v4h-4z M50 66h4v4h-4z M60 66h4v4h-4z
+                  M40 74h4v4h-4z M48 74h4v4h-4z M56 74h4v4h-4z
+                  M70 70h4v4h-4z M80 70h4v4h-4z
+                  M70 78h4v4h-4z M80 78h4v4h-4z
+                " />
+              </g>
+
+              {/* scan line */}
+              <rect x="10" y="10" width="80" height="6" fill="#60a5fa" opacity="0.18">
+                <animate attributeName="y" from="10" to="86" dur="1.2s" repeatCount="indefinite" />
+              </rect>
+              {/* small pop effect */}
+              <g>
+                <animateTransform attributeName="transform" type="scale" values="0.86;1.02;1" dur="0.6s" begin="0s" repeatCount="1" />
               </g>
             </g>
 
-            {/* subtle animated indicator when playing: small bars */}
-            <g transform="translate(50,118)" opacity={playing ? 1 : 0.25}>
-              <rect x="-20" y="0" width="4" height={playing ? 18 : 8} rx="2" fill="#000">
+            {/* subtle animated indicator when playing: small bars (centered & flipped) */}
+            <g transform="translate(50,132) rotate(180)" style={barsStyle}>
+              <rect x="-10" y="0" width="6" height="18" rx="2" fill="#000">
                 <animate attributeName="height" values="8;22;8" dur="0.9s" repeatCount="indefinite" />
               </rect>
-              <rect x="-8" y="0" width="4" height={playing ? 26 : 10} rx="2" fill="#000">
+              <rect x="-2" y="0" width="6" height="26" rx="2" fill="#000">
                 <animate attributeName="height" values="10;28;10" dur="1s" repeatCount="indefinite" />
               </rect>
-              <rect x="4" y="0" width="4" height={playing ? 20 : 6} rx="2" fill="#000">
+              <rect x="6" y="0" width="6" height="20" rx="2" fill="#000">
                 <animate attributeName="height" values="6;22;6" dur="0.8s" repeatCount="indefinite" />
               </rect>
             </g>
           </g>
         </g>
       </svg>
-    </motion.div>
+    </div>
   )
 }
